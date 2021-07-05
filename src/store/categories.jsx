@@ -3,7 +3,7 @@ let initialState = {
         {
             normalizedName : 'ELECTRONICS',
             displayName : 'Electronics 👩‍💻',
-            description : 'I do not fear computers. I fear lack of them. 💻'
+            description : 'I do not fear computers. I fear the lack of them. 💻'
         },
         {
             normalizedName : 'FOOD',
