@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { productFilter , resetProducts } from '../../store/products.jsx';
-import {setActiveCategory , reset } from '../../store/categories.jsx';
+// import { productFilter , resetProducts } from '../../store/products.jsx';
+// import {setActiveCategory , reset } from '../../store/categories.jsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';

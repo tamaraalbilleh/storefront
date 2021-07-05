@@ -4,8 +4,9 @@ import { productFilter , resetProducts } from '../../store/products.jsx';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
-import {setActiveCategory , reset } from '../../store/categories.jsx';
-import categoryReducer from '../../store/categories.jsx';
+import {setActiveCategory } from '../../store/categories.jsx';
+// import  { reset } from '../../store/categories.jsx';
+// import categoryReducer from '../../store/categories.jsx';
 
 // this is the style object from material ui //
 const useStyles = makeStyles((theme) => ({
