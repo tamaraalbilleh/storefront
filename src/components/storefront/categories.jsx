@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 // the categories component // 
 const Categories = (props) => {
     const classes = useStyles();
-    console.log ('de hea el props',props)
+    // console.log ('de hea el props',props)
     return (
         <React.Fragment>
             <h2  style={{ 'margin-left' : '20px' , 'font-family': 'Roboto, sans-serif'}}>Browse Our Categories</h2>
@@ -47,7 +47,7 @@ const Categories = (props) => {
 
 // binding the state with the props //
 const mapStateToProps = (state) =>{
-  console.log (state , 'his')
+  // console.log (state , 'his')
   return({
   
   allCatagories : state.category,

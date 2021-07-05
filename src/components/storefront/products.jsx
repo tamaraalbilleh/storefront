@@ -17,6 +17,7 @@ import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
+import {addToCart} from '../../store/cart.jsx'
 // style object for the cards //
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,15 +52,6 @@ const Products = props => {
       setExpanded(!expanded);
     };
 
-    // .filter((product)=>{
-    //     if (product.category === props.allCatagories.activeCategory){
-    //             return  props.allCatagories.activeCategory.normalizedName
-    //     }else {
-    //         return 'ALL'
-    //     }
-    // }) 
-
-console.log ('the props' , props)
     return ( 
         <React.Fragment>
             <div >
@@ -69,7 +61,14 @@ console.log ('the props' , props)
                 <div style={{'margin-top' : '70px','display' : 'grid' , 'gridTemplateColumns' :'30% 30% 30% '  , 'justifyContent' : 'space-between', 'flexFlow' : 'wrap'}}>
                 {
                     props.allProducts.products
-                    .filter(product => product.category === (props.allCatagories.activeCategory.normalizedName ? props.allCatagories.activeCategory.normalizedName : product))
+                    .filter(product => {
+                        {/* console.log ('hi' , props.allCatagories) */}
+                      if (props.allCatagories.activeCategory.normalizedName === 'ALL'){
+                        return product
+                      }else if (product.category === (props.allCatagories.activeCategory.normalizedName ? props.allCatagories.activeCategory.normalizedName : product)){
+                        return product
+                      }
+                    })
                     .map ((product , index) =>(
 
                         <Card className={classes.root} key={product.name}>
@@ -80,7 +79,7 @@ console.log ('the props' , props)
                             </CardContent>
 
                             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
+                                <IconButton aria-label="add to favorites" onClick= {()=> props.addToCart(product)}>
                                     <AddShoppingCartIcon/>
                                     <small> Add to Cart</small>
                                 </IconButton>
@@ -111,15 +110,17 @@ console.log ('the props' , props)
 }
 // props.allCatagories.activeCategory.displayName || 
 const mapStateToProps = (state) =>{
-console.log ('state',state)
+// console.log ('state',state)
     return ({
         allProducts : state.products,
         allCatagories : state.category,
+        cart : state.cart
     });
 } 
 
+const mapDispatchToProps= { addToCart }
 // const mapDispatchToProps = ({setActiveCategory , reset});
-export default connect ( mapStateToProps) (Products)
+export default connect ( mapStateToProps , mapDispatchToProps) (Products)
 
 
    

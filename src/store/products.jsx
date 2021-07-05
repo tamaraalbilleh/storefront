@@ -4,7 +4,7 @@ let initialState = {
     products :  [
         {
           category  : 'ELECTRONICS',
-          name : 'Surface Studio 2',
+          name : 'Surface Studio 2 💻',
           description : 'not in your wildest dreams 😢',
           price : 3500,
           inventory : 12,
@@ -12,7 +12,7 @@ let initialState = {
         },
         {
             category  : 'ELECTRONICS',
-            name : 'ps5',
+            name : 'ps5 🎮',
             description : 'soon inshaallah 🥺',
             price : 500,
             inventory : 14,
@@ -20,7 +20,7 @@ let initialState = {
         },
         {
             category  : 'ELECTRONICS',
-            name : 'HTC Vive Pro 2',
+            name : 'HTC Vive Pro 2 👓',
             description : 'dont try 😭',
             price : 1200 ,
             inventory : 3,
@@ -57,11 +57,33 @@ let initialState = {
 const productsReducer = (state = initialState, action) => {
     let {type , payload} = action ;
     switch (type) {
-        case 'FILTER' :
+        case 'ACTIVE' :
+            if (payload === 'ALL'){
+                return initialState
+            }
             let products = initialState.products.filter(product => product.category === payload );
             return { products };
         case 'RESET' :
             return initialState;
+        case 'ADD_TO_CART':
+            let newProducts = state.products.map((product) => {
+                if (product.name === payload.name) {
+                  product = { ...product, inventory: product.inventory - 1 };
+                  return product;
+                }
+                return product;
+            });
+            return { products: newProducts };
+
+        case 'REMOVE_FROM_CART':
+            let newProducts2 = state.products.map((product) => {
+                if (product.name === payload.name) {
+                  product = { ...product, inventory: product.inventory + 1 };
+                  return product;
+                }
+                return product;
+            });
+            return { products: newProducts2 };
         default :
             return state
     }

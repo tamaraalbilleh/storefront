@@ -3,7 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+
+import { connect } from 'react-redux';
+
+import SimpleCart from '../cart/simpleCart.jsx'
+
+
+
+
+
+
+import {removeFromCart} from '../../store/cart.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Header = function (props) {
 
-export default function ButtonAppBar() {
-    const classes = useStyles();
-  
+  const classes = useStyles();
+
+    console.log ('our cart',props.cart)
     return (
       <div className={classes.root}>
         <AppBar position="static" style={{'background' : 'white' , 'color' : 'gray'}}>
@@ -28,10 +39,17 @@ export default function ButtonAppBar() {
             <Typography variant="h5" className={classes.title}>
               Tama Store 😺
             </Typography>
-            <Button color="gray">🛒  Cart</Button>
+           <SimpleCart/>
           </Toolbar>
         </AppBar>
       </div>
     );
   }
   
+
+  const mapStateToProps = (state) => {
+    return { cart: state.cart };
+  };
+
+  const mapDispatchToProps = { removeFromCart }
+  export default connect(mapStateToProps , mapDispatchToProps)(Header);
