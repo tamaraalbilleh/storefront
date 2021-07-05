@@ -26,9 +26,9 @@ export default function ButtonAppBar() {
         <AppBar position="static" style={{'background' : 'white' , 'color' : 'gray'}}>
           <Toolbar>
             <Typography variant="h5" className={classes.title}>
-              Our Store
+              Tama Store 😺
             </Typography>
-            <Button color="gray">Cart</Button>
+            <Button color="gray">🛒  Cart</Button>
           </Toolbar>
         </AppBar>
       </div>

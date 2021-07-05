@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
 import {setActiveCategory , reset } from '../../store/categories.jsx';
+import categoryReducer from '../../store/categories.jsx';
 
 // this is the style object from material ui //
 const useStyles = makeStyles((theme) => ({
@@ -21,16 +22,22 @@ const useStyles = makeStyles((theme) => ({
 // the categories component // 
 const Categories = (props) => {
     const classes = useStyles();
+    console.log ('de hea el props',props)
     return (
         <React.Fragment>
             <h2  style={{ 'margin-left' : '20px' , 'font-family': 'Roboto, sans-serif'}}>Browse Our Categories</h2>
 
             <div className={classes.root} style={{'float' : 'left' , 'margin-left' : '20px'}}>
                 <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-                    <Button onClick={() => props.productFilter('ELECTRONICS')}>Electronics</Button>
-                    <Button onClick={() => props.productFilter('FOOD')}>Foods</Button>
-                    <Button onClick={() => props.resetProducts()}>All Products</Button>
+
+
+                {props.allCatagories.categories.map((category) => {
+                    return <Button   onClick={() => props.setActiveCategory(category)} >{category.normalizedName}</Button>
+                })}
+
+                    {/* <Button onClick={() => {props.setActiveCategory('ALL'); props.resetProducts()}}>All Products</Button> */}
                 </ButtonGroup>
+               
             </div>
 
         </React.Fragment>
@@ -38,13 +45,15 @@ const Categories = (props) => {
 }
 
 // binding the state with the props //
-const mapStateToProps = (state) =>({
+const mapStateToProps = (state) =>{
+  console.log (state , 'his')
+  return({
   
-  allCatagories : state.categoryReducer,
-});
+  allCatagories : state.category,
+})};
 
 // binding the actions to the props //
-const mapDispatchToProps = { setActiveCategory , reset };
+const mapDispatchToProps = { setActiveCategory,productFilter , resetProducts };
 
 // connecting the state and the actions while passing the component as an argument and exporting them //
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

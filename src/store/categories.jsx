@@ -1,5 +1,5 @@
 let initialState = {
-    catagories: [
+    categories: [
         {
             normalizedName : 'ELECTRONICS',
             displayName : 'Electronics 👩‍💻',
@@ -12,19 +12,17 @@ let initialState = {
         },
         
     ], 
-    activeCategory : {
-        normalizedName : 'FOOD',
-        displayName : 'Foods 👩‍🍳',
-        description : 'Donut worry, be happy 🍩🥳'
-    }
+    activeCategory : 'ALL'
 };
 
 const categoryReducer = (state = initialState, action) => {
     let {type , payload} = action ;
+    console.log ('this is the state of the cat' , type)
     switch (type) {
         case 'ACTIVATE' :
-            let active = state.categories.filter(category => category.category === payload );
-            return { active };
+            let activeCategory = payload;
+            let categories = state.categories;
+            return { activeCategory, categories };
         case 'RESET' :
             return initialState;
         default :

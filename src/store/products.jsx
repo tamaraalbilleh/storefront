@@ -58,7 +58,7 @@ const productsReducer = (state = initialState, action) => {
     let {type , payload} = action ;
     switch (type) {
         case 'FILTER' :
-            let products = state.products.filter(product => product.category === payload );
+            let products = initialState.products.filter(product => product.category === payload );
             return { products };
         case 'RESET' :
             return initialState;
