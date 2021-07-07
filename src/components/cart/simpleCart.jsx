@@ -9,14 +9,14 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Button from '@material-ui/core/Button';
-import React from 'react';
+import React , {useEffect} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import {removeFromCart} from '../../store/cart.jsx';
-
+import { getRemoteData } from '../../store/actions.jsx';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -72,6 +72,14 @@ const SimpleCart = function (props) {
 
     prevOpen.current = open;
   }, [open]);
+  const dispatch = useDispatch ();
+  const state = useSelector ((state)=> {
+    return { 
+      allProducts : state,
+      allCatagories : state.category,
+      cart : state.cart
+    }
+  })
 
   // onClick={handleClose}
   let totalCount = 0
@@ -79,11 +87,16 @@ const SimpleCart = function (props) {
 //     let r = record.votes > winning.votes ? record : winning
 //     return r;
 // }, currentLeader);
-
-  let total = props.cart.reduce ((sum , item )=>{
-    sum = sum + item.count
-    return sum
-  } , totalCount)
+let total = 0
+  // let total = state.cart.reduce ((sum , item )=>{
+  //   sum = sum + item.count
+  //   return sum
+  useEffect(() => {
+    // dispatch(activeCategory('ALL'));
+    dispatch(getRemoteData());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // } , totalCount)
 
   return (
       <React.Fragment>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React , {useEffect} from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { productFilter , resetProducts } from '../../store/products.jsx';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -7,6 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import {setActiveCategory } from '../../store/categories.jsx';
 // import  { reset } from '../../store/categories.jsx';
 // import categoryReducer from '../../store/categories.jsx';
+
+// new imports 
+import { getRemoteData } from '../../store/actions.jsx';
 
 // this is the style object from material ui //
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +25,25 @@ const useStyles = makeStyles((theme) => ({
 
 // the categories component // 
 const Categories = (props) => {
+    // methods for api 
     const classes = useStyles();
+    const dispatch = useDispatch ();
+    const state = useSelector ((state)=> {
+      return { 
+        allProducts : state,
+        allCatagories : state.category,
+        // cart : state.cart
+      }
+    })
+
+    let categories = state.allProducts.products.map (item => item.category)
+     categories = [...new Set(categories)]
+     useEffect(() => {
+      // dispatch(activeCategory('ALL'));
+      dispatch(getRemoteData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     // console.log ('de hea el props',props)
     return (
         <React.Fragment>
@@ -32,11 +53,13 @@ const Categories = (props) => {
                 <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 
 
-                {props.allCatagories.categories.map((category) => {
-                    return <Button   onClick={() => props.setActiveCategory(category)} >{category.normalizedName}</Button>
+                {categories.map((category) => {
+                    return <Button   onClick={() => {dispatch(setActiveCategory(category))}} >{category.toUpperCase()}</Button>
                 })}
+                
+              
 
-                    {/* <Button onClick={() => {props.setActiveCategory('ALL'); props.resetProducts()}}>All Products</Button> */}
+                    <Button onClick={() => {dispatch(setActiveCategory('ALL')); props.resetProducts()}}>All</Button>
                 </ButtonGroup>
                
             </div>

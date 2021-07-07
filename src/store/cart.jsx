@@ -1,12 +1,14 @@
-let initialState = [
-        {name : 'Surface Studio 2 💻', count : 0},
-        {name : 'ps5 🎮', count : 0},
-        {name : 'HTC Vive Pro 2 👓', count : 0},
-        {name : 'Cheese cake  🍰', count : 0},
-        {name : 'Donut 🍩', count : 0},
-        {name : 'cup cake 🧁', count : 0},
+let initialState = [];
 
-    ];
+// let initialState = [
+//         {name : 'Surface Studio 2 💻', count : 0},
+//         {name : 'ps5 🎮', count : 0},
+//         {name : 'HTC Vive Pro 2 👓', count : 0},
+//         {name : 'Cheese cake  🍰', count : 0},
+//         {name : 'Donut 🍩', count : 0},
+//         {name : 'cup cake 🧁', count : 0},
+
+// ];
 
 
 const cartReducer =(state = initialState  , action) =>{
