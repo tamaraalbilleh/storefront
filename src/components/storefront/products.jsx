@@ -94,11 +94,11 @@ console.log ('new props' , state)
                       }
                       })
                     .map ((product , index) =>(
-             <Card className={classes.root} key={product.name}>
+             <Card className={classes.root} key={product.item}>
 
              <CardMedia className={classes.media} image={product.image} title="Paella dish"/>
              <CardContent>
-                 <Typography variant="body2" color="textSecondary" component="h2" style={{'fontSize' : '25px'}}>{product.name}</Typography>
+                 <Typography variant="body2" color="textSecondary" component="h2" style={{'fontSize' : '25px'}}>{product.item}</Typography>
              </CardContent>
              <CardActions disableSpacing>
                  <IconButton aria-label="add to favorites" onClick= {()=> dispatch(  addToRemoteData(product._id,{...product, inventory : product.inventory -1})  )}>

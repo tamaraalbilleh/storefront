@@ -1,4 +1,6 @@
-let initialState = [];
+let initialState = {
+    cart : [],
+} 
 
 // let initialState = [
 //         {name : 'Surface Studio 2 💻', count : 0},
@@ -16,22 +18,26 @@ const cartReducer =(state = initialState  , action) =>{
     
     switch (type){
         case 'ADD_TO_CART':
-            return state.map(c => {
-                if (c.name === payload.name) {
-                    return { name: c.name, count: c.count + 1 }
-                }
-                return c;
-            });
+            let x = payload;
+            let y = [...state.cart]
+            y.push (x)
+            return { cart :[...y]}
         case 'REMOVE_FROM_CART':
-            return state.map(c => {
-                if (c.name === payload.name) {
-                    return { name: c.name, count: c.count - 1 }
+            let z = payload;
+            console.log ('hiho')
+            return {cart : [...state.cart.filter (product => product !== z)]}
+        case 'REMOVE' : 
+            let c = payload;
+            let h = state.cart;
+            for (let i = 0 ; i  <h.length ;i++){
+                if (h[i] === c.item){
+                    h.slice(i,1)
+                    break;
                 }
-                return c;
-            });
+            }
+            return {cart : h}
         default :
-            return state
-        // case : 'REMOVE_FROM_CART':
+            return state;
     }
 }
 

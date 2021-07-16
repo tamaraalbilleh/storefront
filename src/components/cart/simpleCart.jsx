@@ -87,17 +87,19 @@ const SimpleCart = function (props) {
 //     let r = record.votes > winning.votes ? record : winning
 //     return r;
 // }, currentLeader);
-let total = 0
-  // let total = state.cart.reduce ((sum , item )=>{
-  //   sum = sum + item.count
-  //   return sum
+const itemCount = {}
+props.cart.forEach(function (x) { itemCount[x.item] = (itemCount[x.item] || 0) + 1; });
+
+  let total = Object.values(itemCount).reduce ((sum , item )=>{
+    sum = sum + item
+    return sum
+    } , totalCount)
   useEffect(() => {
     // dispatch(activeCategory('ALL'));
     dispatch(getRemoteData());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  // } , totalCount)
-
+  console.log ('this is the cart component ' , props.cart)
   return (
       <React.Fragment>
 
@@ -117,14 +119,19 @@ let total = 0
     >
       <Paper>
         <ClickAwayListener onClickAway={handleClose}>
-          <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+          <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
           {
-            props.cart
-            .filter (item => item.count > 0)
+            Object.entries(itemCount)
+            
             .map ( item =>(
-            <MenuItem >{item.name} ({item.count})   <IconButton onClick={()=>props.removeFromCart(item)} aria-label="delete" className={classes.margin}>
+              
+            <MenuItem >{item[0]} ({item[1]})   <IconButton onClick={
+              props.cart.filter (product => product.item = item[0]).then(()=>props.returnToRemoteData(props.cart[0]._id,item))
+              
+              } aria-label="delete" className={classes.margin}>
     <DeleteIcon fontSize="small" />
     </IconButton></MenuItem>
+    
     
             ))
           }
@@ -140,7 +147,7 @@ let total = 0
 }
 
 const mapStateToProps = (state) => {
-    return { cart: state.cart };
+    return { cart: state.cart.cart };
   };
 
   const mapDispatchToProps = { removeFromCart }
