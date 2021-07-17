@@ -17,6 +17,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 
 import {removeFromCart} from '../../store/cart.jsx';
 import { getRemoteData } from '../../store/actions.jsx';
+import {returnToRemoteData} from '../../store/actions.jsx'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -87,23 +88,43 @@ const SimpleCart = function (props) {
 //     let r = record.votes > winning.votes ? record : winning
 //     return r;
 // }, currentLeader);
-const itemCount = {}
-props.cart.forEach(function (x) { itemCount[x.item] = (itemCount[x.item] || 0) + 1; });
+// let itemCount = {}
+// if (props.cart){ props.cart.forEach(function (x) { itemCount[x.item] = (itemCount[x.item] || 0) + 1; });}else {
+//   itemCount = { item : 0}
+// }
 
-  let total = Object.values(itemCount).reduce ((sum , item )=>{
-    sum = sum + item
-    return sum
-    } , totalCount)
+//   let total = Object.values(itemCount).reduce ((sum , item )=>{
+//     sum = sum + item
+//     return sum
+//     } , totalCount)
   useEffect(() => {
     // dispatch(activeCategory('ALL'));
     dispatch(getRemoteData());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   console.log ('this is the cart component ' , props.cart)
+
+
+  const clickHandler = (item) =>{
+    
+    // props.cart.filter (product => product.item = item)
+    // console.log ('target of click' ,item , props)
+    // props.returnToRemoteData(props.cart[0]._id,e.target.value)
+          props.removeProduct( item)    
+              
+  }
+
+
+
+
+
+            {/* Object.entries(itemCount) */}
+
+
   return (
       <React.Fragment>
 
-    <StyledBadge badgeContent={total? total: '0'} color="primary"/>
+    <StyledBadge badgeContent={props.cart.length? props.cart.length: '0'} color="primary"/>
     <Button color="gray"
      ref={anchorRef}
      aria-controls={open ? 'menu-list-grow' : undefined}
@@ -121,14 +142,10 @@ props.cart.forEach(function (x) { itemCount[x.item] = (itemCount[x.item] || 0) +
         <ClickAwayListener onClickAway={handleClose}>
           <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
           {
-            Object.entries(itemCount)
-            
+            props.cart
             .map ( item =>(
               
-            <MenuItem >{item[0]} ({item[1]})   <IconButton onClick={
-              props.cart.filter (product => product.item = item[0]).then(()=>props.returnToRemoteData(props.cart[0]._id,item))
-              
-              } aria-label="delete" className={classes.margin}>
+            <MenuItem>{item.item}   <IconButton onClick={()=> dispatch(  returnToRemoteData(item._id,{...item, inventory : item.inventory +1})  )}  aria-label="delete" className={classes.margin}>
     <DeleteIcon fontSize="small" />
     </IconButton></MenuItem>
     
@@ -150,7 +167,7 @@ const mapStateToProps = (state) => {
     return { cart: state.cart.cart };
   };
 
-  const mapDispatchToProps = { removeFromCart }
+  const mapDispatchToProps = { removeFromCart   }
   export default connect(mapStateToProps , mapDispatchToProps)(SimpleCart);
 
 

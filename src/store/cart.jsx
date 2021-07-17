@@ -22,20 +22,13 @@ const cartReducer =(state = initialState  , action) =>{
             let y = [...state.cart]
             y.push (x)
             return { cart :[...y]}
-        case 'REMOVE_FROM_CART':
-            let z = payload;
-            console.log ('hiho')
-            return {cart : [...state.cart.filter (product => product !== z)]}
         case 'REMOVE' : 
-            let c = payload;
-            let h = state.cart;
-            for (let i = 0 ; i  <h.length ;i++){
-                if (h[i] === c.item){
-                    h.slice(i,1)
-                    break;
-                }
-            }
-            return {cart : h}
+           
+            let newCart = state.cart.filter((product) => {
+                return product.item !== payload.item;
+              });
+        
+              return { ...state, cart: newCart };
         default :
             return state;
     }
