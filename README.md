@@ -27,7 +27,7 @@
 
 ### UML
 (Created with [diagrams](https://app.diagrams.net/))
-![UML Diagram for phase 1](./uml2.png)
+![UML Diagram for phase 2](./uml2.png)
 [for more clear view](https://app.diagrams.net/?src=about#G1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn) 
 
 ## Thunk (phase 3)
@@ -36,6 +36,6 @@
 
 ### UML
 (Created with [diagrams](https://app.diagrams.net/))
-![UML Diagram for phase 1](https://drive.google.com/file/d/1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn/view?usp=sharing)
+![UML Diagram for phase 3](https://drive.google.com/file/d/1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn/view?usp=sharing)
 [for more clear view](https://app.diagrams.net/?src=about#G1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn) 
 
