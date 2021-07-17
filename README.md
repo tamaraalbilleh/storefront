@@ -8,8 +8,8 @@
 
 
 
-### Deployment
-* [deployment for main branch ](https://tama-store.netlify.app/) .
+<!-- ### Deployment
+* [deployment for main branch ](https://tama-store.netlify.app/) . -->
 
 ## Redux(phase 1)
 ### Deployment of the branch :
@@ -36,6 +36,15 @@
 
 ### UML
 (Created with [diagrams](https://app.diagrams.net/))
-![UML Diagram for phase 3](https://drive.google.com/file/d/1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn/view?usp=sharing)
+![UML Diagram for phase 3](./uml3.png)
+[for more clear view](https://app.diagrams.net/?src=about#G1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn) 
+
+## Redux Tool Kit (phase 4)
+### Deployment of the branch :
+* [deployment for rtk branch ]() .
+
+### UML
+(Created with [diagrams](https://app.diagrams.net/))
+![UML Diagram for phase 3](./uml4.png)
 [for more clear view](https://app.diagrams.net/?src=about#G1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn) 
 
