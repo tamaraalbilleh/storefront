@@ -36,6 +36,6 @@
 
 ### UML
 (Created with [diagrams](https://app.diagrams.net/))
-![UML Diagram for phase 1](./uml3.png)
+![UML Diagram for phase 1](https://drive.google.com/file/d/1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn/view?usp=sharing)
 [for more clear view](https://app.diagrams.net/?src=about#G1s4Fi3ypjyisCxekaStld4Gs9Awv1Tzsn) 
 
