@@ -65,15 +65,18 @@ const productsReducer = (state = initialState, action) => {
             return { products };
         case 'RESET' :
             return initialState;
+
+
         case 'ADD_TO_CART':
             let newProducts = state.products.map((product) => {
                 if (product.name === payload.name) {
-                  product = { ...product, inventory: product.inventory - 1 };
+                  product = { ...product, inventory : payload.inventory};
                   return product;
                 }
                 return product;
             });
             return { products: newProducts };
+
 
         case 'REMOVE_FROM_CART':
             let newProducts2 = state.products.map((product) => {
@@ -84,6 +87,8 @@ const productsReducer = (state = initialState, action) => {
                 return product;
             });
             return { products: newProducts2 };
+
+
         default :
             return state
     }

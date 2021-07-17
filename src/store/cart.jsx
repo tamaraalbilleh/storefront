@@ -1,12 +1,16 @@
-let initialState = [
-        {name : 'Surface Studio 2 💻', count : 0},
-        {name : 'ps5 🎮', count : 0},
-        {name : 'HTC Vive Pro 2 👓', count : 0},
-        {name : 'Cheese cake  🍰', count : 0},
-        {name : 'Donut 🍩', count : 0},
-        {name : 'cup cake 🧁', count : 0},
+let initialState = {
+    cart : [],
+} 
 
-    ];
+// let initialState = [
+//         {name : 'Surface Studio 2 💻', count : 0},
+//         {name : 'ps5 🎮', count : 0},
+//         {name : 'HTC Vive Pro 2 👓', count : 0},
+//         {name : 'Cheese cake  🍰', count : 0},
+//         {name : 'Donut 🍩', count : 0},
+//         {name : 'cup cake 🧁', count : 0},
+
+// ];
 
 
 const cartReducer =(state = initialState  , action) =>{
@@ -14,22 +18,19 @@ const cartReducer =(state = initialState  , action) =>{
     
     switch (type){
         case 'ADD_TO_CART':
-            return state.map(c => {
-                if (c.name === payload.name) {
-                    return { name: c.name, count: c.count + 1 }
-                }
-                return c;
-            });
-        case 'REMOVE_FROM_CART':
-            return state.map(c => {
-                if (c.name === payload.name) {
-                    return { name: c.name, count: c.count - 1 }
-                }
-                return c;
-            });
+            let x = payload;
+            let y = [...state.cart]
+            y.push (x)
+            return { cart :[...y]}
+        case 'REMOVE' : 
+           
+            let newCart = state.cart.filter((product) => {
+                return product.item !== payload.item;
+              });
+        
+              return { ...state, cart: newCart };
         default :
-            return state
-        // case : 'REMOVE_FROM_CART':
+            return state;
     }
 }
 

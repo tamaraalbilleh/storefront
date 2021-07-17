@@ -9,14 +9,15 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Button from '@material-ui/core/Button';
-import React from 'react';
+import React , {useEffect} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import {removeFromCart} from '../../store/cart.jsx';
-
+import { getRemoteData } from '../../store/actions.jsx';
+import {returnToRemoteData} from '../../store/actions.jsx'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -72,6 +73,14 @@ const SimpleCart = function (props) {
 
     prevOpen.current = open;
   }, [open]);
+  const dispatch = useDispatch ();
+  const state = useSelector ((state)=> {
+    return { 
+      allProducts : state,
+      allCatagories : state.category,
+      cart : state.cart
+    }
+  })
 
   // onClick={handleClose}
   let totalCount = 0
@@ -79,16 +88,43 @@ const SimpleCart = function (props) {
 //     let r = record.votes > winning.votes ? record : winning
 //     return r;
 // }, currentLeader);
+// let itemCount = {}
+// if (props.cart){ props.cart.forEach(function (x) { itemCount[x.item] = (itemCount[x.item] || 0) + 1; });}else {
+//   itemCount = { item : 0}
+// }
 
-  let total = props.cart.reduce ((sum , item )=>{
-    sum = sum + item.count
-    return sum
-  } , totalCount)
+//   let total = Object.values(itemCount).reduce ((sum , item )=>{
+//     sum = sum + item
+//     return sum
+//     } , totalCount)
+  useEffect(() => {
+    // dispatch(activeCategory('ALL'));
+    dispatch(getRemoteData());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log ('this is the cart component ' , props.cart)
+
+
+  const clickHandler = (item) =>{
+    
+    // props.cart.filter (product => product.item = item)
+    // console.log ('target of click' ,item , props)
+    // props.returnToRemoteData(props.cart[0]._id,e.target.value)
+          props.removeProduct( item)    
+              
+  }
+
+
+
+
+
+            {/* Object.entries(itemCount) */}
+
 
   return (
       <React.Fragment>
 
-    <StyledBadge badgeContent={total? total: '0'} color="primary"/>
+    <StyledBadge badgeContent={props.cart.length? props.cart.length: '0'} color="primary"/>
     <Button color="gray"
      ref={anchorRef}
      aria-controls={open ? 'menu-list-grow' : undefined}
@@ -104,14 +140,15 @@ const SimpleCart = function (props) {
     >
       <Paper>
         <ClickAwayListener onClickAway={handleClose}>
-          <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+          <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
           {
             props.cart
-            .filter (item => item.count > 0)
             .map ( item =>(
-            <MenuItem >{item.name} ({item.count})   <IconButton onClick={()=>props.removeFromCart(item)} aria-label="delete" className={classes.margin}>
+              
+            <MenuItem>{item.item}   <IconButton onClick={()=> dispatch(  returnToRemoteData(item._id,{...item, inventory : item.inventory +1})  )}  aria-label="delete" className={classes.margin}>
     <DeleteIcon fontSize="small" />
     </IconButton></MenuItem>
+    
     
             ))
           }
@@ -127,10 +164,10 @@ const SimpleCart = function (props) {
 }
 
 const mapStateToProps = (state) => {
-    return { cart: state.cart };
+    return { cart: state.cart.cart };
   };
 
-  const mapDispatchToProps = { removeFromCart }
+  const mapDispatchToProps = { removeFromCart   }
   export default connect(mapStateToProps , mapDispatchToProps)(SimpleCart);
 
 

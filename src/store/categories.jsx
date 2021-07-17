@@ -1,35 +1,36 @@
-let initialState = {
-    categories: [
-        {
-            normalizedName : 'ELECTRONICS',
-            displayName : 'Electronics 👩‍💻',
-            description : 'I do not fear computers. I fear the lack of them. 💻'
-        },
-        {
-            normalizedName : 'FOOD',
-            displayName : 'Foods 👩‍🍳',
-            description : 'Donut worry, be happy 🍩🥳'
-        },
-        {
-            normalizedName : 'ALL',
-            displayName : 'All Products 🤩',
-            description : 'Brows everything in one place 😸'
-        }
+let initialState = {activeCategory:'ALL'};
+
+// let initialState = {
+//     categories: [
+//         {
+//             normalizedName : 'ELECTRONICS',
+//             displayName : 'Electronics 👩‍💻',
+//             description : 'I do not fear computers. I fear the lack of them. 💻'
+//         },
+//         {
+//             normalizedName : 'FOOD',
+//             displayName : 'Foods 👩‍🍳',
+//             description : 'Donut worry, be happy 🍩🥳'
+//         },
+//         {
+//             normalizedName : 'ALL',
+//             displayName : 'All Products 🤩',
+//             description : 'Brows everything in one place 😸'
+//         }
         
-    ], 
-    activeCategory : 'ALL'
-};
+//     ], 
+//     activeCategory : 'ALL'
+// };
 
 const categoryReducer = (state = initialState, action) => {
     let {type , payload} = action ;
-    console.log ('this is the state of the cat' , type)
     switch (type) {
         case 'ACTIVATE' :
-            let activeCategory = payload;
-            let categories = state.categories;
+            let newActiveCategory = payload;
+           
             // console.log({ activeCategory, categories });
 
-            return { activeCategory, categories };
+            return { ...state,activeCategory :newActiveCategory };
             // let activeCategory = state.categories.filter((c)=> c.normalizedName === payload.normalizedName);
             // console.log (state , 'newState');
             // console.log (payload , 'payload');
